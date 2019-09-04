@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/all.css">
+    <title>calculator</title>
+    <style>
+        #display{
+            height: 27vh;
+            padding: 0px 20px;
+            margin-top: 30px;
+            font-size: 24px;
+
+        }
+
+        body{
+            margin:0px;
+        }
+
+        .parent{
+            padding: 0px 20px;
+            display: flex;
+            flex-direction: row;
+            height:50vh;
+            /* justify-content: space-between; */
+        }
+        .inner{ 
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            justify-content: space-between;
+        
+        }
+        .inner>.buttons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .inner>.operatorTop{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+        }
+
+        .inner>.operatorTop>button{
+            background: rgba(191, 59, 246, 0.767);
+            color: white;
+            box-shadow: -2px 4px 7px 0px rgba(0, 0, 0, 0.17);
+            outline: none;
+        }
+
+        button, button:focus{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 17px;
+            box-shadow: -2px 4px 7px 0px rgba(0, 0, 0, 0.17);
+            background: white;
+           
+            outline: none;
+        }
+
+        .operators{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width:20%;
+            
+            
+        }
+
+        .operators> button{
+            background: rgba(191, 59, 246, 0.767);
+            color: white;
+            box-shadow: -2px 4px 7px 0px rgba(0, 0, 0, 0.17);
+            outline: none;
+            
+        }
+        #result{
+            height: 10vh;
+            font-size: 38px;
+            padding: 20px 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    
+    <div class="container">
+        <div id="display">
+
+        </div>
+        <div id="result">
+
+        </div>
+        <div class="parent">
+            <div class="inner">
+                <div class="operatorTop">
+                    <button onclick="clearDisplay()" >Clear</button>
+                    <button  onclick="deleteChar()"><i class="fas fa-backspace"></i></button>
+                    <button onclick="percentage()">%</button>
+                </div>
+                <div class="buttons">
+                    <button onclick="getIndex(3)">1</button>
+                    <button  onclick="getIndex(4)">2</button>
+                    <button onclick="getIndex(5)">3</button>
+                </div>
+                <div class="buttons">
+                    <button onclick="getIndex(6)">4</button>
+                    <button onclick="getIndex(7)">5</button>
+                    <button onclick="getIndex(8)">6</button>
+                </div>
+                <div class="buttons">
+                    <button onclick="getIndex(9)">7</button>
+                    <button onclick="getIndex(10)">8</button>
+                    <button onclick="getIndex(11)">9</button>
+                </div>
+                <div class="buttons">
+                    <button onclick="getIndex(12)">.</button>
+                    <button onclick="getIndex(13)">0</button>
+                    <button>=</button>
+                </div>
+            </div>
+            <div class="operators">
+                <!-- <div class="opeinner"> -->
+
+                    
+                    <button onclick="getIndex(15)">+</button>
+                    <button onclick="getIndex(16)">-</button>
+                    <button onclick="getIndex(17)">*</button>
+                    <button onclick="getIndex(18)">/</button>
+                <!-- </div> -->
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+      
+
+        let display = document.getElementById('display'); //display div variable
+        let output = document.getElementById('result'); // output div Variable
+        let userInput = ''; // userInput declared and set to an empty string to enable evalution/concatination by the eval() method.
+        
+        let value = document.getElementsByTagName('button'); // variable getting values from buttons.
+        // console.log(value)
+       
+
+        
+/* the getIndex function takes the string (innerText) of every button clicked and set it to be displayed on the displayed Div using .innerText Dom method. 
+    this same string value gotten from the clicked button is also passed to the variable userInput for evalution by the eval() method.
+    The final result of the eveluated userInput string is then assigned to result to be displayed on the output div innerText.
+
+*/
+        function getIndex(i){
+            display.innerText += value[i].innerText;
+    
+            userInput += value[i].innerText;
+            result = eval(userInput)
+            
+            // console.log(result)
+            output.innerText = result;
+           
+        }
+// function to reset the value of the variables displayed.
+        function clearDisplay(){
+            display.innerText = '';
+            userInput = '';
+            output.innerText = '';
+           
+            console.log('userInput cleared!')
+        }
+ 
+        
+        const deleteChar = () => {
+             // the sunString method takes the userInput and returns all the character that is between index of 0 to -1 of the string length and thereby removing the last character.
+            display.innerText = userInput.substring(0, display.innerText.length -1);
+            //output.innerText = userInput.substring(0, output.innerText.length -1);
+            userInput = userInput.substring(0, userInput.length -1);
+            // console.log('deleted')
+            }
+        
+            // this function takes the displayed input (user input) and divides it by 100 to get the percentage
+            const percentage = () => {
+                result = userInput/100;
+                output.innerText = result;
+            }
+       
+    </script>
+</body>
+</html>
